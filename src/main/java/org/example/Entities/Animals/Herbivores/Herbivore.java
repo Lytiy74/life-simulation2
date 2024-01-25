@@ -1,9 +1,10 @@
-//package org.example.Entities.Animals.Herbivores;
-//
-//import org.example.Entities.Animals.Animal;
-//
-//public class Herbivore extends Animal {
-//    public Herbivore() {
-//        super(animalType);
-//    }
-//}
+package org.example.Entities.Animals.Herbivores;
+
+import org.example.Entities.Animals.Animal;
+import org.example.Entities.Animals.Animals;
+
+public class Herbivore extends Animal {
+    public Herbivore(Animals animalType) {
+        super(animalType);
+    }
+}

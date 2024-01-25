@@ -3,12 +3,12 @@ package org.example.Services;
 import lombok.extern.log4j.Log4j2;
 import org.example.Entities.Animals.Animal;
 import org.example.Entities.Animals.Animals;
+import org.example.Entities.Animals.Herbivores.Horse;
 import org.example.Entities.Animals.Predators.Wolf;
 import org.example.Entities.Entities;
 import org.example.Map.Coordinates;
 import org.example.Map.GameField;
 
-import java.util.Random;
 
 import static org.reflections.Reflections.log;
 
@@ -33,7 +33,7 @@ public class GameFieldInit {
     private void initCells() {
         for (int y = 0; y < gameField.getHeight(); y++) {
             for (int x = 0; x < gameField.getWidth(); x++) {
-                gameField.getCells().add(gameField.new Cell(new Coordinates(x,y)));
+                gameField.getCells().add(gameField.new Cell(new Coordinates(x, y)));
             }
         }
     }
@@ -43,12 +43,13 @@ public class GameFieldInit {
     }
 
     private void addRandomAnimal() {
-        gameField.getCells().forEach(o -> {
+        gameField.getCells().forEach(o -> { //going through all cells in gameField and add random quantity of Animal
             for (int i = 0; i < (Math.random() * o.getMaxEntities()); i++) {
                 final Animal animal = getRandomAnimal();
                 o.putEntityToArrayListInMap(Entities.ANIMAL, animal);
-            log.debug(animal.getANIMAL_TYPE() + " was added to " + o);
+                log.debug(animal.getANIMAL_TYPE() + " was added to " + o);
             }
+            log.debug(o + o.getEntitiesMap().toString());
         });
     }
 
@@ -59,6 +60,8 @@ public class GameFieldInit {
         switch (randomAnimal) {
             case WOLF:
                 return new Wolf();
+            case HORSE:
+                return new Horse();
             default:
                 throw new IllegalStateException("Unexpected value: " + randomAnimal);
         }

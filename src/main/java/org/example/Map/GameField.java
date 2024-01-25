@@ -93,7 +93,6 @@ public class GameField {
         @Override
         public String toString() {
             return "Cell{" + coordinates +
-                    ", entitiesMap=" + entitiesMap +
                     '}';
         }
     }
