@@ -25,13 +25,13 @@ public class GameFieldInit {
     private void initCells() {
         for (int y = 0; y < gameField.getHeight(); y++) {
             for (int x = 0; x < gameField.getWidth(); x++) {
-                Coordinates coordinates = new Coordinates(x, y);
-                gameField.getCells().add(gameField.new Cell(coordinates));
+                gameField.getCells().add(gameField.new Cell(new Coordinates(x,y)));
             }
         }
     }
 
     private void fillCells() {
+
     }
 
 

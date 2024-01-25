@@ -5,10 +5,7 @@ import org.example.Entities.Entities;
 import org.example.Entities.Organism;
 import org.example.Services.ConfigLoader;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.reflections.Reflections.log;
 
@@ -52,21 +49,28 @@ public class GameField {
         return cells;
     }
 
+    public Optional<Cell> getCellAt(Coordinates coordinates) {
+        return cells.stream()
+                .filter(o -> o.coordinates.equals(coordinates))
+                .findFirst();
+    }
+
     public class Cell {
         private final Coordinates coordinates;
         private final Map<Entities, List<Organism>> entitiesMap = new HashMap<>();
 
         public Cell(Coordinates coordinates) {
             this.coordinates = coordinates;
-            this.entitiesMap.put(Entities.ANIMAL,new ArrayList<>());
-            this.entitiesMap.put(Entities.PLANT,new ArrayList<>());
+            this.entitiesMap.put(Entities.ANIMAL, new ArrayList<>());
+            this.entitiesMap.put(Entities.PLANT, new ArrayList<>());
             log.debug(this + "was initialized.");
         }
 
         public Coordinates getCoordinates() {
             return coordinates;
         }
-        public void putEntityToArrayListInMap(Organism organism){
+
+        public void putEntityToArrayListInMap(Organism organism) {
             entitiesMap.get(organism.getENTITY_TYPE()).add(organism);
         }
 
