@@ -1,8 +1,16 @@
 package org.example.Services;
 
 import lombok.extern.log4j.Log4j2;
+import org.example.Entities.Animals.Animal;
+import org.example.Entities.Animals.Animals;
+import org.example.Entities.Animals.Predators.Wolf;
+import org.example.Entities.Entities;
 import org.example.Map.Coordinates;
 import org.example.Map.GameField;
+
+import java.util.Random;
+
+import static org.reflections.Reflections.log;
 
 @Log4j2
 public class GameFieldInit {
@@ -31,7 +39,29 @@ public class GameFieldInit {
     }
 
     private void fillCells() {
+        addRandomAnimal();
+    }
 
+    private void addRandomAnimal() {
+        gameField.getCells().forEach(o -> {
+            for (int i = 0; i < (Math.random() * o.getMaxEntities()); i++) {
+                final Animal animal = getRandomAnimal();
+                o.putEntityToArrayListInMap(Entities.ANIMAL, animal);
+            log.debug(animal.getANIMAL_TYPE() + " was added to " + o);
+            }
+        });
+    }
+
+    private Animal getRandomAnimal() {
+        Animals[] animals = Animals.values();
+        Animals randomAnimal = animals[(int) (Math.random() * animals.length)];
+
+        switch (randomAnimal) {
+            case WOLF:
+                return new Wolf();
+            default:
+                throw new IllegalStateException("Unexpected value: " + randomAnimal);
+        }
     }
 
 

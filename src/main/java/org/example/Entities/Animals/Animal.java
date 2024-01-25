@@ -10,14 +10,25 @@ import static org.reflections.Reflections.log;
 @Log4j2
 
 public abstract class Animal extends Organism implements Movable {
+    private final Animals ANIMAL_TYPE;
 
-    public Animal() {
+
+    public Animal(Animals animalType) {
         super(Entities.ANIMAL);
+        ANIMAL_TYPE = animalType;
     }
+
 
     public void move() {
 
         log.info(this.getClass().getSimpleName() + " moved!");
     }
+    public Animals getANIMAL_TYPE() {
+        return ANIMAL_TYPE;
+    }
 
+    @Override
+    public String toString() {
+        return ANIMAL_TYPE.toString();
+    }
 }

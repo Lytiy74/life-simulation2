@@ -56,11 +56,15 @@ public class GameField {
     }
 
     public class Cell {
+        private final String PROPERTIES_KEY = "map.game-field.cell.";
+        private final int maxEntities;
         private final Coordinates coordinates;
         private final Map<Entities, List<Organism>> entitiesMap = new HashMap<>();
 
+
         public Cell(Coordinates coordinates) {
             this.coordinates = coordinates;
+            this.maxEntities = ConfigLoader.getIntProperty(getPROPERTIES_KEY() + "maxEntities");
             this.entitiesMap.put(Entities.ANIMAL, new ArrayList<>());
             this.entitiesMap.put(Entities.PLANT, new ArrayList<>());
             log.debug(this + "was initialized.");
@@ -70,14 +74,25 @@ public class GameField {
             return coordinates;
         }
 
-        public void putEntityToArrayListInMap(Organism organism) {
+        public void putEntityToArrayListInMap(Entities ENTITY_TYPE, Organism organism) {
             entitiesMap.get(organism.getENTITY_TYPE()).add(organism);
+        }
+
+        public Map<Entities, List<Organism>> getEntitiesMap() {
+            return entitiesMap;
+        }
+
+        public String getPROPERTIES_KEY() {
+            return PROPERTIES_KEY;
+        }
+
+        public int getMaxEntities() {
+            return maxEntities;
         }
 
         @Override
         public String toString() {
-            return "Cell{" +
-                    "coordinates=" + coordinates +
+            return "Cell{" + coordinates +
                     ", entitiesMap=" + entitiesMap +
                     '}';
         }

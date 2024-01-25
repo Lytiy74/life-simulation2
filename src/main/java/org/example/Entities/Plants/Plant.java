@@ -5,6 +5,6 @@ import org.example.Entities.Organism;
 
 public class Plant extends Organism {
     public Plant() {
-        super(Entities.ANIMAL);
+        super(Entities.PLANT);
     }
 }
