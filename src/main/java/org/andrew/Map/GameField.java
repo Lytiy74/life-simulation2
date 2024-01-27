@@ -1,9 +1,9 @@
-package org.example.Map;
+package org.andrew.Map;
 
 import lombok.extern.log4j.Log4j2;
-import org.example.Entities.Entities;
-import org.example.Entities.Organism;
-import org.example.Services.ConfigLoader;
+import org.andrew.Entities.EntityType;
+import org.andrew.Entities.Organism;
+import org.andrew.Services.ConfigLoader;
 
 import java.util.*;
 
@@ -59,14 +59,14 @@ public class GameField {
         private final String PROPERTIES_KEY = "map.game-field.cell.";
         private final int maxEntities;
         private final Coordinates coordinates;
-        private final Map<Entities, List<Organism>> entitiesMap = new HashMap<>();
+        private final Map<EntityType, List<Organism>> entitiesMap = new HashMap<>();
 
 
         public Cell(Coordinates coordinates) {
             this.coordinates = coordinates;
             this.maxEntities = ConfigLoader.getIntProperty(getPROPERTIES_KEY() + "maxEntities");
-            this.entitiesMap.put(Entities.ANIMAL, new ArrayList<>());
-            this.entitiesMap.put(Entities.PLANT, new ArrayList<>());
+            this.entitiesMap.put(EntityType.ANIMAL, new ArrayList<>());
+            this.entitiesMap.put(EntityType.PLANT, new ArrayList<>());
             log.debug(this + "was initialized.");
         }
 
@@ -74,11 +74,11 @@ public class GameField {
             return coordinates;
         }
 
-        public void putEntityToArrayListInMap(Entities ENTITY_TYPE, Organism organism) {
+        public void putEntityToArrayListInMap(EntityType ENTITY_TYPE, Organism organism) {
             entitiesMap.get(organism.getENTITY_TYPE()).add(organism);
         }
 
-        public Map<Entities, List<Organism>> getEntitiesMap() {
+        public Map<EntityType, List<Organism>> getEntitiesMap() {
             return entitiesMap;
         }
 

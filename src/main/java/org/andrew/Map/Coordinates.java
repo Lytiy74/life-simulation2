@@ -1,4 +1,4 @@
-package org.example.Map;
+package org.andrew.Map;
 
 public class Coordinates {
     private final int x;
