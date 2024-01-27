@@ -49,6 +49,7 @@ public class GameFieldInit {
         gameField.getCells().forEach(cell -> {
             for (int i = 0; i < (Math.random() * cell.getMaxEntities()); i++) {
                 final Organism entity = getRandomEntity();
+                entity.setCoordinates(cell.getCoordinates());
                 cell.putEntityToArrayListInMap(entity.getENTITY_TYPE(), entity);
                 log.debug(entity.getENTITY_TYPE() + " was added to " + cell);
             }
@@ -60,14 +61,11 @@ public class GameFieldInit {
         EntityType[] entities = EntityType.values();
         EntityType randomEntity = entities[(int) (Math.random() * entities.length)];
 
-        switch (randomEntity) {
-            case ANIMAL:
-                return getRandomAnimal();
-            case PLANT:
-                return getRandomPlant();
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomEntity);
-        }
+        return switch (randomEntity) {
+            case ANIMAL -> getRandomAnimal();
+            case PLANT -> getRandomPlant();
+            default -> throw new IllegalStateException("Unexpected value: " + randomEntity);
+        };
     }
 
 
@@ -77,14 +75,11 @@ public class GameFieldInit {
         return createAnimal(randomAnimal);
     }
     private Animal createAnimal(AnimalType randomAnimal) {
-        switch (randomAnimal) {
-            case WOLF:
-                return new Wolf();
-            case HORSE:
-                return new Horse();
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomAnimal);
-        }
+        return switch (randomAnimal) {
+            case WOLF -> new Wolf();
+            case HORSE -> new Horse();
+            default -> throw new IllegalStateException("Unexpected value: " + randomAnimal);
+        };
     }
     private Grass getRandomPlant() {
         PlantType[] plants = PlantType.values();
@@ -93,11 +88,9 @@ public class GameFieldInit {
     }
 
     private Grass createPlant(PlantType randomPlant) {
-        switch (randomPlant) {
-            case GRASS:
-                return new Grass();
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomPlant);
-        }
+        return switch (randomPlant) {
+            case GRASS -> new Grass();
+            default -> throw new IllegalStateException("Unexpected value: " + randomPlant);
+        };
     }
 }
