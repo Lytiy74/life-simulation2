@@ -1,5 +1,6 @@
 package org.andrew.Map;
 
+import org.andrew.Entities.EntityType;
 import org.andrew.Map.GameField;
 import org.andrew.Services.GameFieldInit;
 import org.junit.jupiter.api.Nested;
@@ -42,6 +43,20 @@ public class GameFieldTest {
         void testMaxEntities() {
             gameField.getCells().forEach(o -> {
                 assertEquals(5, o.getMaxEntities());
+            });
+        }
+        @Test
+        void testCellMapSize() {
+            gameField.getCells().forEach(cell -> {
+                assertEquals(2, cell.getEntitiesMap().size());
+            });
+        }
+        @Test
+        void testCurrentCountOfEntities(){
+            gameField.getCells().forEach(cell -> {
+                int currentCount = cell.getEntitiesMap().get(EntityType.ANIMAL).size();
+                currentCount += cell.getEntitiesMap().get(EntityType.PLANT).size();
+                assertTrue( currentCount <= 5 );
             });
         }
 
